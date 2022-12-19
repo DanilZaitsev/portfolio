@@ -1,0 +1,38 @@
+.pc-condensed a{
+    margin-right: 25px;
+}
+
+.pc-darken-img {
+    /*filter: brightness(1.9);*/
+    min-height: 520px;
+    filter: alpha(opacity=50);
+}
+/*.centered {*/
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+/*}*/
+
+li.set-position {
+    top: 10%;
+    left: 0;
+    /* transform: translate(-50%, -50%); */
+    background: transparent;
+    text-align: left;
+}
+
+.icon {
+    border-radius: 50%;
+    width: 100%;
+    max-width: 70px;
+    /*padding: 0 20px;*/
+}
+
+.no-padding {
+    padding: 0;
+    left: 6px;
+}
+p.blurb-header {
+    font-weight: bold;
+}
