@@ -33,7 +33,7 @@ jobs:
       - name: Deploy
         shell: bash
         run: |
-          ssh-keygen -f "/home/${whoami}/.ssh/known_hosts" -R 3.82.163.200
+          ssh-keygen -f "/home/$(echo whoami)/.ssh/known_hosts" -R 3.82.163.200
           echo ${{ secrets.DOCKER_PASS }} > /tmp/key.pem
           chmod 600 /tmp/key.pem
           ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@3.82.163.200 "pwd"
