@@ -24,16 +24,21 @@ jobs:
           username: spotaddockers
           password: ${{ secrets.DOCKER_PASS }}
     
-      - name: Docker build & push
+#      - name: Docker build & push
+#        shell: bash
+#        run: |
+#          docker build -t ${{ env.REPOSITORY }}:${{ env.RELEASE_VERSION }} .
+#          docker push ${{ env.REPOSITORY }}:${{ env.RELEASE_VERSION }}
+
+      - name: Deploy
         shell: bash
         run: |
-          docker build -t ${{ env.REPOSITORY }}:${{ env.RELEASE_VERSION }} .
-          docker push ${{ env.REPOSITORY }}:${{ env.RELEASE_VERSION }}
+          echo ${{ secrets.DOCKER_PASS }} > key.pem
+          ssh -i key.pem ubuntu@3.82.163.200 "pwd"
+          rm key.pem
 
-  #    - name: Kubernetes apply
-  #      shell: bash
-  #      run: |
-  #        mkdir -p chart/${{ env.REPO_NAME }}/config
-  #        cp config/* chart/${{ env.REPO_NAME }}/config
-  #        helm upgrade --install --history-max 2 --namespace oe-b2b-evs-dv ${{ env.REPO_NAME }}release \
-  #          --set image.tag=${{ env.RELEASE_VERSION }} chart/${{ env.REPO_NAME }} -f chart/values-dv.yaml
+
+#          mkdir -p chart/${{ env.REPO_NAME }}/config
+#          cp config/* chart/${{ env.REPO_NAME }}/config
+#          helm upgrade --install --history-max 2 --namespace oe-b2b-evs-dv ${{ env.REPO_NAME }}release \
+#            --set image.tag=${{ env.RELEASE_VERSION }} chart/${{ env.REPO_NAME }} -f chart/values-dv.yaml
