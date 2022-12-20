@@ -15,9 +15,8 @@ jobs:
         shell: bash
 
         run: |
-          echo "RELEASE_VERSION=20221220_194118" >> $GITHUB_ENV
           echo "REPOSITORY=spotaddockers/portfolio" >> $GITHUB_ENV
-#          echo "RELEASE_VERSION=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_ENV
 
       - name: Docker Login
         uses: docker/login-action@v2.1.0
@@ -25,11 +24,11 @@ jobs:
           username: spotaddockers
           password: ${{ secrets.DOCKER_PASS }}
     
-#      - name: Docker build & push
-#        shell: bash
-#        run: |
-#          docker build -t ${{ env.REPOSITORY }}:${{ env.RELEASE_VERSION }} .
-#          docker push ${{ env.REPOSITORY }}:${{ env.RELEASE_VERSION }}
+      - name: Docker build & push
+        shell: bash
+        run: |
+          docker build -t ${{ env.REPOSITORY }}:${{ env.RELEASE_VERSION }} .
+          docker push ${{ env.REPOSITORY }}:${{ env.RELEASE_VERSION }}
 
       - name: Deploy
         shell: bash
@@ -39,8 +38,3 @@ jobs:
           sed -i 's/REPLACE_TAG/${{ env.RELEASE_VERSION }}/g' docker-compose.yml
           scp -i key.pem  -o "StrictHostKeyChecking no" docker-compose.yml ubuntu@3.82.163.200:/home/ubuntu/portfolio/
           ssh -i key.pem  -o "StrictHostKeyChecking no" ubuntu@3.82.163.200 'bash -s' < ./deploy.sh ${{ env.RELEASE_VERSION }}
-
-#          mkdir -p chart/${{ env.REPO_NAME }}/config
-#          cp config/* chart/${{ env.REPO_NAME }}/config
-#          helm upgrade --install --history-max 2 --namespace oe-b2b-evs-dv ${{ env.REPO_NAME }}release \
-#            --set image.tag=${{ env.RELEASE_VERSION }} chart/${{ env.REPO_NAME }} -f chart/values-dv.yaml
