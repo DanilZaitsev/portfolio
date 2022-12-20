@@ -9,7 +9,7 @@ services:
       - 8126:8126
       - 8125:8125
     volumes:
-      - ./storage:/opt/graphite/storage
+      - ./storage:/opt/graphite/storage/whisper/stats/PORTFOLIO
   portfolio:
     image: 'spotaddockers/portfolio:REPLACE_TAG'
     ports:

@@ -7,7 +7,7 @@ const data = [
                 highlight: "About Me",
                 icon: "img/introduction.png",
                 details_title: "Introduction",
-                details: "Hi I'm Danil.<br><p>My roots are from Ukraine, but most time of my life I lived in Israel. Now I'm living in " +
+                details: "Hi2 I'm Danil.<br><p>My roots are from Ukraine, but most time of my life I lived in Israel. Now I'm living in " +
                     "Vancouver with my wife and 12 years old son.</p>" +
                     "I'm a Senior Software Developer at IronSource. The powerful company, " +
                     "which bought SpotAd startup in 2022, where I worked as RTB(Real-Time Bidding) team leader and " +
