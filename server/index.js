@@ -1,8 +1,10 @@
 const express = require('express');
+const path = require('path');
 const app = express();
-const logger = require('../logger');
+const react_app = express();
+const logger = require('./logger');
 const graphite = require('./graphite_reporter');
-graphite.initStatsD('172.17.0.3', 8125);
+graphite.initStatsD('graphite', 8125);
 const metrics = graphite.metrics;
 
 function start(port) {
@@ -26,6 +28,16 @@ function start(port) {
     app.listen(port, function () {
         logger.info("Server has started: " + port);
     });
+
+    react_app.use(addCommonHeaders);
+    react_app.use(('*', express.static(path.join(__dirname, '../build'))));
+    react_app.get('*', function (req, res) {
+        res.sendFile(path.join(__dirname, '../build', 'index.html'));
+    });
+    react_app.listen(80, function () {
+        logger.info("Server has started: " + port);
+    });
+
 
     function addCommonHeaders(req, res, next) {
         res.setHeader('Access-Control-Allow-Origin', '*');

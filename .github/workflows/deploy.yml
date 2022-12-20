@@ -1,0 +1,33 @@
+name: Main push trigger
+
+on:
+  push:
+  branches:
+    - main
+
+jobs:
+  BuildDeploy:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v2
+
+    - name: Set timestamp as release version - RELEASE_VERSION
+      shell: bash
+
+      run: |
+        echo "RELEASE_VERSION=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_ENV
+        echo "REPOSITORY=spotaddockers/portfolio" >> $GITHUB_ENV
+
+    - name: Docker build & push
+      shell: bash
+      run: |
+        docker build -t ${{ env.REPOSITORY }}:${{ env.RELEASE_VERSION }} .
+        docker push ${{ env.REPOSITORY }}:${{ env.RELEASE_VERSION }}
+
+#    - name: Kubernetes apply
+#      shell: bash
+#      run: |
+#        mkdir -p chart/${{ env.REPO_NAME }}/config
+#        cp config/* chart/${{ env.REPO_NAME }}/config
+#        helm upgrade --install --history-max 2 --namespace oe-b2b-evs-dv ${{ env.REPO_NAME }}release \
+#          --set image.tag=${{ env.RELEASE_VERSION }} chart/${{ env.REPO_NAME }} -f chart/values-dv.yaml

@@ -1,34 +1,37 @@
-FROM ubuntu:18.04
+FROM node:16.13.0-alpine as build
 
-RUN apt-get update
-RUN apt-get install -y make git g++ gcc curl
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install -y nodejs
-#FROM node:14.14.0-alpine
+WORKDIR /app
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm i
 
-WORKDIR "/app"
-COPY ./package.json ./
-RUN npm install
-
+WORKDIR /app/server
+COPY ./server/package.json ./
+RUN npm i
+WORKDIR /app
 COPY . .
 
+RUN npm run build
+
+
+FROM node:16.13.0-alpine
+WORKDIR /app
+COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/package-lock.json ./package-lock.json
+COPY --from=build /app/build ./build
+COPY --from=build /app/server ./server
+COPY --from=build /app/src/config.json ./src/config.json
+COPY --from=build /app/index_server.js ./index_server.js
+
 RUN mkdir -p logs
-
 EXPOSE 3000
+CMD ["npm", "start"]
 
-COPY ./start.sh /app/start.sh
-RUN chmod +x /app/start.sh
-#CMD bash /app/start.sh
 
-CMD ["/bin/bash", "/app/start.sh"]
+## production environment
+#FROM nginx:stable-alpine
+#COPY --from=build /app/build /usr/share/nginx/html
+#EXPOSE 80
+#CMD ["nginx", "-g", "daemon off;"]
 
-#CMD ["npm", "run", "start"]
-
-#docker build -t spotaddockers/portfolio:v0 -f Dockerfile .
-#docker push spotaddockers/portfolio:v0
-
-#docker ps
-#docker stop
-#docker pull spotaddockers/portfolio:v0
-#docker run -d -p 80:3000 -p 3004:3004 -v /home/ubuntu/logs:/app/logs spotaddockers/portfolio:v0
-#docker run -d --name graphite --restart=always -p 8000:80 -p 2003-2004:2003-2004 -p 2023-2024:2023-2024 -p 8125:8125/udp -p 8126:8126 graphiteapp/graphite-statsd
+# docker run --rm --name folio -d -p 8080:3000 -p 81:80 -p 3004:3004 spotaddockers/portfolio:v9

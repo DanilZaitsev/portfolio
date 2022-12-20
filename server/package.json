@@ -1,22 +1,17 @@
 {
   "name": "portfolio_app",
-  "main": "src/index.js",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.15.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
+    "express": "^4.15.3",
     "fs": "0.0.1-security",
-    "jquery": "^3.6.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
+    "lynx": "^0.2.0",
+    "winston": "^2.3.1",
+    "winston-daily-rotate-file": "^1.4.6"
   },
   "scripts": {
     "dev": "start node index_server.js && react-scripts start",
-    "start": "node index_server.js",
+    "start": "node index_server.js && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
