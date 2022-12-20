@@ -35,6 +35,7 @@ jobs:
         run: |
           echo ${{ secrets.DOCKER_PASS }} > key.pem
           chmod 600 key.pem
+          ssh-keygen -R 3.82.163.200
           ssh -i key.pem ubuntu@3.82.163.200 "pwd"
           rm key.pem
 
