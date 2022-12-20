@@ -34,8 +34,8 @@ jobs:
         shell: bash
         run: |
           echo ${{ secrets.DOCKER_PASS }} > /tmp/key.pem
-          chmod 600 /tmp/key.pem
-          chown ubuntu:ubuntu /tmp/key.pem
+          chmod 400 /tmp/key.pem
+#          chown ubuntu:ubuntu /tmp/key.pem
           ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@3.82.163.200 "pwd"
           rm /tmp/key.pem
 
