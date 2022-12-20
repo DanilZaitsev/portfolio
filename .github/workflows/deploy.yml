@@ -15,8 +15,9 @@ jobs:
         shell: bash
 
         run: |
-          echo "RELEASE_VERSION=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=20221220_194118" >> $GITHUB_ENV
           echo "REPOSITORY=spotaddockers/portfolio" >> $GITHUB_ENV
+#          echo "RELEASE_VERSION=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_ENV
 
       - name: Docker Login
         uses: docker/login-action@v2.1.0
@@ -37,8 +38,12 @@ jobs:
           chmod 400 key.pem
           sed -i 's/REPLACE_TAG/${{ env.RELEASE_VERSION }}/g' docker-compose.yml
           scp -i key.pem  -o "StrictHostKeyChecking no" docker-compose.yml ubuntu@3.82.163.200:/home/ubuntu/portfolio/
-          ssh -i key.pem  -o "StrictHostKeyChecking no" ubuntu@3.82.163.200 "docker pull ${{ env.REPOSITORY }}:20221220_194118 && ls -lrt ./portfolio"
-          rm key.pem
+          ssh -i key.pem  -o "StrictHostKeyChecking no" ubuntu@3.82.163.200  <<'ENDSSH'
+          cd portfolio
+          docker-compose stop
+          docker-compose rm
+          docker images|grep spotaddockers/portfolio|grep -v ${{ env.RELEASE_VERSION }}|awk -F'       ' '{print "docker rmi "$1":"$2}'|bash
+          docker-compose -d up
 
 #          mkdir -p chart/${{ env.REPO_NAME }}/config
 #          cp config/* chart/${{ env.REPO_NAME }}/config
