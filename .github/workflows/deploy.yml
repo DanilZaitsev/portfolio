@@ -34,8 +34,8 @@ jobs:
         shell: bash
         run: |
           echo ${{ secrets.PORTFOLIO_PEM }} > /tmp/key.pem
-          chmod 600 /tmp/key.pem
-          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@3.82.163.200 "pwd"
+          chmod 400 /tmp/key.pem
+          ssh -o StrictHostKeyChecking=no -i key.pem 'ubuntu@3.82.163.200' "pwd && whoami"
           rm /tmp/key.pem
 
 
