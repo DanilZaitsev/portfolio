@@ -8,8 +8,8 @@ services:
       - 2023-2024:2023-2024
       - 8126:8126
       - 8125:8125
-    volumes:
-      - ./storage:/opt/graphite/storage
+#    volumes:
+#      - ./storage:/opt/graphite/storage
   portfolio:
     image: 'spotaddockers/portfolio:REPLACE_TAG'
     ports:
