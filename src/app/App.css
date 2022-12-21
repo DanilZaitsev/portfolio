@@ -92,6 +92,9 @@ h4 {
   .add-top-menu {
     display: flex !important;
   }
+  .brand {
+    font-size: 30px;
+  }
 }
 
 .App-header {
