@@ -44,3 +44,14 @@
     cursor: pointer;
     transform: scale(1.05);
 }
+
+@media (max-width: 576px) {
+    .nav-style {
+        min-width: 87px;
+        margin: 10px 2px;
+        font-size: 12px;
+    }
+    .topnav .nav-link, a {
+        font-size: 12px;
+    }
+}

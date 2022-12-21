@@ -7,3 +7,9 @@
     box-shadow: 20px 20px 20px rgba(0,0,0, .3);
     min-height: 563px;
 }
+
+@media (max-width: 576px) {
+    .wishlist-style {
+        margin: 0rem 1rem;
+    }
+}

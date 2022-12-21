@@ -62,8 +62,18 @@ h4 {
 }
 
 @media (max-width: 576px) {
+  /*.headershot-img {*/
+    /*display: none;*/
+  /*}*/
   .headershot-img {
-    display: none;
+    max-width: 110px;
+  }
+  .App-headershot-wrapper {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .brand {
+    font-size: 30px;
   }
 }
 
@@ -72,6 +82,10 @@ h4 {
 }
 
 @media (max-width: 1300px) {
+  .App-headershot-wrapper {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
   .remove-side-menu {
     display: none;
   }
