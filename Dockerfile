@@ -7,6 +7,7 @@ RUN npm i
 
 WORKDIR /app/server
 COPY ./server/package.json ./
+COPY ./server/package-lock.json ./
 RUN npm i
 WORKDIR /app
 COPY . .
