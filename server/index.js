@@ -1,13 +1,20 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const app = express();
 const react_app = express();
 const logger = require('./logger');
 const graphite = require('./graphite_reporter');
-graphite.initStatsD('graphite', 8125);
+
+const REACT_APP_SERVER_PORT = process.env.REACT_APP_SERVER_PORT;
+const REACT_APP_TUNNEL_PORT = process.env.REACT_APP_TUNNEL_PORT;
+const GRAPHITE_HOST = process.env.GRAPHITE_HOST;
+const GRAPHITE_PORT = process.env.GRAPHITE_PORT;
+
+graphite.initStatsD(GRAPHITE_HOST, GRAPHITE_PORT);
 const metrics = graphite.metrics;
 
-function start(port) {
+function start() {
     process.on('uncaughtException', function (err) {
         logger.error('uncaught error', err);
     });
@@ -25,8 +32,8 @@ function start(port) {
         response.end();
     });
 
-    app.listen(port, function () {
-        logger.info("Server has started: " + port);
+    app.listen(REACT_APP_SERVER_PORT, function () {
+        logger.info("Server has started: " + REACT_APP_SERVER_PORT);
     });
 
     react_app.use(addCommonHeaders);
@@ -34,8 +41,8 @@ function start(port) {
     react_app.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, '../build', 'index.html'));
     });
-    react_app.listen(80, function () {
-        logger.info("Server has started: " + port);
+    react_app.listen(REACT_APP_TUNNEL_PORT, function () {
+        logger.info("Server has started: " + REACT_APP_TUNNEL_PORT);
     });
 
 

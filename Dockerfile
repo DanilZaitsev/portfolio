@@ -20,7 +20,7 @@ COPY --from=build /app/package.json ./package.json
 COPY --from=build /app/package-lock.json ./package-lock.json
 COPY --from=build /app/build ./build
 COPY --from=build /app/server ./server
-COPY --from=build /app/src/config.json ./src/config.json
+COPY --from=build /app/.env ./.env
 COPY --from=build /app/index_server.js ./index_server.js
 
 RUN mkdir -p logs
