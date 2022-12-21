@@ -20,7 +20,7 @@ jobs:
         run: |
           tag=${{ github.event.inputs.tag }}
           echo "REPOSITORY=spotaddockers/portfolio" >> $GITHUB_ENV
-          echo "RELEASE_VERSION=${tag)" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=${tag}" >> $GITHUB_ENV
 
       - name: Deploy
         shell: bash
