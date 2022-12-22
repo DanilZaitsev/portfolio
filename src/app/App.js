@@ -4,8 +4,11 @@ import './App.css';
 //Components
 import Card from '../card/card';
 import NavbarItem from '../navbar-item/navbar-item';
-import cards from '../card/card_data';
 import WishList from '../wishlist/wishlist';
+
+//Services
+import HttpService from '../services/http-service';
+const http = new HttpService();
 
 class App extends Component {
     constructor(props) {
@@ -24,7 +27,11 @@ class App extends Component {
     loadData = () => {
         var self = this;
         setTimeout(function () {
-            self.setState({ cards: cards });
+            const user = window.location.pathname.length > 1? window.location.pathname: '/danil';
+            http.getCardsData(user)
+                .then(function (data) {
+                    self.setState({ cards: data.cards, main: data.main });
+                });
         }, 0);
     };
 
@@ -45,6 +52,11 @@ class App extends Component {
     };
 
     render() {
+        if (this.state.onWishList) {
+
+        } else {
+
+        }
         return (
             <div className="App">
                 <header className="App-header">
@@ -52,13 +64,13 @@ class App extends Component {
                         <div className="row">
                             <div className="col-sm-4">
                                 <div className="App-headershot" alt="profile image">
-                                    <div className="brand">Danil<span className="sensei"> Zaitsev</span></div>
-                                    <div className="brand"><span className="sensei">Backend</span> Developer</div>
+                                    <div className="brand">{this.state.main? this.state.main.name: ''}<span className="sensei"> {this.state.main? this.state.main.surname: ''}</span></div>
+                                    <div className="brand"><span className="sensei">{this.state.main? this.state.main.title1: ''}</span> {this.state.main? this.state.main.title2: ''}</div>
                                 </div>
                             </div>
                             <div className="col-sm-4">
                                 <div className="author">Web Page Author: Danil Zaitsev</div>
-                                <img className="headershot-img" src="img/me_t.png" alt=""></img>
+                                <img className="headershot-img" src={this.state.main? this.state.main.me_t: ''} alt=""></img>
                             </div>
                         </div>
                     </div>

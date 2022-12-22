@@ -13,3 +13,9 @@
         margin: 0rem 1rem;
     }
 }
+
+@media (max-width: 1300px) {
+    .wishlist-style {
+        margin: 0rem 1rem;
+    }
+}

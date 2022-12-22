@@ -5,6 +5,7 @@ const app = express();
 const react_app = express();
 const logger = require('./logger');
 const graphite = require('./graphite_reporter');
+const cards = require('./card_data');
 
 const REACT_APP_SERVER_PORT = process.env.REACT_APP_SERVER_PORT;
 const REACT_APP_TUNNEL_PORT = process.env.REACT_APP_TUNNEL_PORT;
@@ -20,6 +21,13 @@ function start() {
     });
 
     app.use(addCommonHeaders);
+
+    app.get('/cards', function (request, response) {
+        logger.info(request.query);
+        // response.writeHead(200, { "Content-Type": "text/plain" });
+        response.write(JSON.stringify(cards.data[request.query.user]));
+        response.end();
+    });
 
     app.all('/*', function (request, response) {
         const ip = request.headers['x-forwarded-for'] || request.socket.remoteAddress || null;

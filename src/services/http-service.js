@@ -3,9 +3,9 @@ const domain = window.location.host.split(':')[0];
 const REACT_APP_SERVER_PORT = process.env.REACT_APP_SERVER_PORT;
 
 class HttpService {
-    getProducts = () => {
+    getCardsData = (user) => {
         return new Promise((resolve, reject) => {
-            fetch('http://' + domain + ':' + REACT_APP_SERVER_PORT + '/product')
+            fetch('http://' + domain + ':' + REACT_APP_SERVER_PORT + '/cards?user=' + user)
                 .then(response => {
                     resolve(response.json());
                 })
