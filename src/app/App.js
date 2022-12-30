@@ -69,7 +69,7 @@ class App extends Component {
                                 </div>
                             </div>
                             <div className="col-sm-4">
-                                <div className="author">Web Page Author: Danil Zaitsev</div>
+                                <div className="author">{this.state.main? this.state.main.author: ''}</div>
                                 <img className="headershot-img" src={this.state.main? this.state.main.me_t: ''} alt=""></img>
                             </div>
                         </div>
