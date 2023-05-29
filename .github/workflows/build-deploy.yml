@@ -36,6 +36,6 @@ jobs:
           echo "${{ secrets.PORTFOLIO_PEM }}" | tr -d '\r' > key.pem
           chmod 400 key.pem
           sed -i 's/REPLACE_TAG/${{ env.RELEASE_VERSION }}/g' docker-compose.yml
-          ssh -i key.pem  -o "StrictHostKeyChecking no" ubuntu@54.158.249.202 'mkdir -p portfolio'
-          scp -i key.pem  -o "StrictHostKeyChecking no" docker-compose.yml ubuntu@54.158.249.202:/home/ubuntu/portfolio/
-          ssh -i key.pem  -o "StrictHostKeyChecking no" ubuntu@54.158.249.202 'bash -s' < ./deploy.sh ${{ env.RELEASE_VERSION }}
+          ssh -i key.pem  -o "StrictHostKeyChecking no" ubuntu@3.82.163.200 'mkdir -p portfolio'
+          scp -i key.pem  -o "StrictHostKeyChecking no" docker-compose.yml ubuntu@3.82.163.200:/home/ubuntu/portfolio/
+          ssh -i key.pem  -o "StrictHostKeyChecking no" ubuntu@3.82.163.200 'bash -s' < ./deploy.sh ${{ env.RELEASE_VERSION }}
