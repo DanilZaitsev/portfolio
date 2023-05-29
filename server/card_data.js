@@ -210,7 +210,7 @@ const data = {
     ]},
     '/rita': {
         main:{
-            me_t: "img/rita_t.gif",
+            me_t: "img/rita_t.png",
             name: "Margarita",
             surname: "Ilizarov",
             title1: "Hello",
@@ -243,7 +243,7 @@ const data = {
                     details_title: "Hobbies",
                     details: "Working out: I work out several times a week - strength training and running<br>" +
                         "Traveling: I have been to many places in Europe and US<br>" +
-                        "Fishing: especially in childhood, but sometimes even now<br>" +
+                        "Hiking: I am in  love with gorgeous British Columbia and eager to explore, and discover new places.<br>" +
                         "Beginner in skiing: I love that great sport combined with nature"
                 },
                 {
@@ -251,10 +251,10 @@ const data = {
                     icon: "img/contacts.png",
                     details_title: "Contacts",
                     details: "Email: ilizarova.m@gmail.com<br>LinkedIn: " +
-                        "<a style='color: #0a417c;' href='https://www.linkedin.com/in/danil-zaitsev-116a2757/' target='_blank'>Margarita Ilizarov</a>"
+                        "<a style='color: #0a417c;' href='https://www.linkedin.com/in/margarita-ilizarov-b5a30b260/' target='_blank'>Margarita Ilizarov</a>"
                 }
             ],
-            imgUrl: 'img/about_me.jpg',
+            imgUrl: 'img/about_rita.jpg',
             imgUrlT: 'img/projects_t.png',
             order: "icon-left",
             clicked: true,
@@ -306,8 +306,8 @@ const data = {
                         "• Coordinating and making orders"
                 }
             ],
-            imgUrl: 'img/me_working.jpg',
-            imgUrlT: 'img/me_working_t.png',
+            imgUrl: 'img/rita_working.jpg',
+            imgUrlT: 'img/rita_working_t.png',
             order: "icon-right",
 
         },
