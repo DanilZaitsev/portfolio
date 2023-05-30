@@ -36,7 +36,7 @@ class ProductCondensed extends Component {
         const style = {
             "backgroundImage": `url(${this.props.product.imgUrlT})`,
             "backgroundSize": "100%",
-            "backgroundRepeat": "round"
+            "backgroundRepeat": "no-repeat"
         };
         return (
             <div className="pc-darken-img" style={style}>
